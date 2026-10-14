@@ -1,0 +1,38 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Dishes collection
+    match /dishes/{dishId} {
+      allow read: if true;
+      allow create, update: if isValidId(dishId)
+        && request.resource.data.nameFr is string
+        && request.resource.data.nameFr.size() > 0
+        && request.resource.data.nameFr.size() <= 200
+        && request.resource.data.price is number
+        && request.resource.data.price >= 0;
+      allow delete: if isValidId(dishId);
+    }
+
+    // Settings collection (general settings, contact info, PIN)
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isValidId(docId);
+    }
+
+    // TikTok videos collection
+    match /tiktok_videos/{videoId} {
+      allow read: if true;
+      allow write: if isValidId(videoId);
+    }
+  }
+}

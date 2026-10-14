@@ -1,0 +1,6 @@
+{
+  "name": "Chez le Maestro",
+  "description": "Restaurant africain à Deira, Dubaï : attiéké, garba, foutou, tchep, soupes africaines. Commandez sur WhatsApp. African restaurant in Deira, Dubai.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,165 @@
+{
+  "entities": {
+    "Dish": {
+      "title": "Dish",
+      "description": "Represents a restaurant menu dish item",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the dish"
+        },
+        "nameFr": {
+          "type": "string",
+          "description": "French name of the dish",
+          "maxLength": 200
+        },
+        "nameEn": {
+          "type": "string",
+          "description": "English name of the dish (optional)",
+          "maxLength": 200
+        },
+        "price": {
+          "type": "number",
+          "description": "Price in AED"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["menu", "boissons"],
+          "description": "Category: menu (plats) or boissons (drinks)"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Cover image URL or base64 data URL"
+        },
+        "thumbnailUrl": {
+          "type": "string",
+          "description": "Optimized thumbnail image URL or base64 data URL"
+        },
+        "images": {
+          "type": "array",
+          "description": "List of dish photo URLs (max 5)"
+        },
+        "descriptionFr": {
+          "type": "string",
+          "description": "Description in French"
+        },
+        "descriptionEn": {
+          "type": "string",
+          "description": "Description in English"
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Creation timestamp in milliseconds"
+        }
+      },
+      "required": ["id", "nameFr", "price", "category"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Restaurant application settings and business info",
+      "type": "object",
+      "properties": {
+        "pin": {
+          "type": "string",
+          "description": "6-digit admin security PIN"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact phone number"
+        },
+        "whatsapp": {
+          "type": "string",
+          "description": "WhatsApp contact number"
+        },
+        "venueName": {
+          "type": "string",
+          "description": "Restaurant location venue name"
+        },
+        "venueFloor": {
+          "type": "string",
+          "description": "Restaurant floor info"
+        },
+        "googleMapsUrl": {
+          "type": "string",
+          "description": "Google Maps location link"
+        },
+        "openingHoursFr": {
+          "type": "string",
+          "description": "Opening hours in French"
+        },
+        "openingHoursEn": {
+          "type": "string",
+          "description": "Opening hours in English"
+        },
+        "taglineFr": {
+          "type": "string",
+          "description": "Slogan in French"
+        },
+        "taglineEn": {
+          "type": "string",
+          "description": "Slogan in English"
+        },
+        "tiktokProfileUrl": {
+          "type": "string",
+          "description": "TikTok profile URL"
+        },
+        "logoUrl": {
+          "type": "string",
+          "description": "Custom logo URL"
+        },
+        "locationPhotoUrl": {
+          "type": "string",
+          "description": "Photo of restaurant facade or venue"
+        }
+      },
+      "required": ["pin", "phone", "whatsapp", "venueName"]
+    },
+    "TikTokVideo": {
+      "title": "TikTokVideo",
+      "description": "Showcase TikTok video linked to the restaurant",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the video"
+        },
+        "url": {
+          "type": "string",
+          "description": "TikTok video web URL"
+        },
+        "videoId": {
+          "type": "string",
+          "description": "Extracted TikTok numeric video ID"
+        },
+        "caption": {
+          "type": "string",
+          "description": "Video caption description"
+        },
+        "coverUrl": {
+          "type": "string",
+          "description": "Video preview cover image URL"
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Creation timestamp in milliseconds"
+        }
+      },
+      "required": ["id", "url", "videoId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/dishes/{dishId}": {
+      "schema": "Dish",
+      "description": "Collection of all restaurant dishes displayed on the menu and managed in admin"
+    },
+    "/settings/general": {
+      "schema": "Settings",
+      "description": "Single document holding restaurant configuration and contact info"
+    },
+    "/tiktok_videos/{videoId}": {
+      "schema": "TikTokVideo",
+      "description": "Collection of showcase TikTok videos"
+    }
+  }
+}
